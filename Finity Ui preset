@@ -17,9 +17,13 @@ local EnumKeys = {'Semicolon','Tab','Equals','Comma','Minus','Period','F1',"F2",
 if game:GetService("CoreGui"):FindFirstChild("FinityUI") then
     game.CoreGui.FinityUI:Destroy()
 end
-local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/UI-Librarys/main/Finity%20UI%20Lib"))()
+--[[ Back up : 
+https://raw.githubusercontent.com/Kranzyo/UI-Libraries/main/Finity%20Ui
+https://raw.githubusercontent.com/bloodball/UI-Librarys/main/Finity%20UI%20Lib
+]]
+local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kranzyo/UI-Libraries/main/Finity%20Ui"))()
 local FinityWindow = Finity.new(true)
-FinityWindow.ChangeToggleKey(Enum.KeyCode.Semicolon)
+FinityWindow.ChangeToggleKey(Enum.KeyCode.BackSlash)
 
 -- // Credits and stuff
 local CreditsCategory = FinityWindow:Category("Credits and stuff")
@@ -66,7 +70,7 @@ end)
 local Settings = FinityWindow:Category("Settings")
 local ChangeToggleKey = Settings:Sector("Change Toggle")
 
-ChangeToggleKey:Cheat("Dropdown", "ChangeToggleKey", 
+ChangeToggleKey:Cheat("Dropdown", "Change Toggle Key", 
 function(Option)
     FinityWindow.ChangeToggleKey(Enum.KeyCode[Option])
 end,
