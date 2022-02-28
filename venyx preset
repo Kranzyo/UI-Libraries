@@ -1,0 +1,103 @@
+-- // Game:
+
+-- docs : https://github.com/GreenDeno/Venyx-UI-Library/blob/main/example.lua
+local lp = game:GetService("Players").LocalPlayer
+local char = lp.Character
+local hum = char.Humanoid
+local root = char:FindFirstChild("HumanoidRootPart")
+
+--[[ Backups
+https://raw.githubusercontent.com/Discord0000/Venyx-UI-Library/main/thing.lua
+https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua
+https://raw.githubusercontent.com/sannin9000/Ui-Libraries/main/Venyx 
+]]--
+if game:GetService("CoreGui"):FindFirstChild("Venyx") then
+    game.CoreGui.Venyx:Destroy()
+end
+local venyx = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kranzyo/UI-Libraries/main/Venyx"))()
+local UI = venyx.new("Game", 5012540643)
+
+-- // Credits
+local creditsPage = UI:addPage("Credits", 4102979828)
+local creditsSection = creditsPage:addSection("Devs")
+local desc = creditsPage:addSection("Description")
+creditsSection:addButton("Click for Credits", function()
+    UI:Notify("Credits", [[UI - Denosaur @ v3rmillion.net
+Script - KayD @ v3rmillion.net /Kranz#0737]])
+end)
+desc:addButton("Click for description", function()
+    UI:Notify("Description", "Game description")
+end)
+
+-- // Main stuff
+local misc = UI:addPage("Misc", 5012544961)
+local speed_Jump = misc:addSection("Walk Speed/JumpPower")
+-- // speed slider
+speed_Jump:addSlider("Speed", 16, 16, 250, function(v)
+    getgenv().Speed = v
+end)
+-- // jump slider
+speed_Jump:addSlider("Jump", 50, 50, 250, function(v)
+    getgenv().Jump = v
+end)
+speed_Jump:addToggle("Activate Speed/Jump", nil, function(v)
+    while v do
+        task.wait()
+        hum.WalkSpeed = Speed
+        hum.JumpPower = Jump
+end)
+-- // Settings
+local settings = UI:addPage("Settings", 5012544386)
+local keybindChange = settings:addSection("Toggle Keybind")
+keybindChange:addKeybind("Toggle Keybind", Enum.KeyCode.P, function()
+	UI:toggle()
+end)
+
+UI:SelectPage(UI.pages[1], true)
+--[[
+
+-- init
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
+local venyx = library.new("Venyx", 5013109572)
+
+-- first page
+local page = venyx:addPage("Test", 5012544693)
+local section1 = page:addSection("Section 1")
+local section2 = page:addSection("Section 2")
+
+section1:addToggle("Toggle", nil, function(v)
+	print("Toggled", v)
+end)
+section1:addButton("Button", function()
+	print("Clicked")
+end)
+section1:addTextbox("Notification", "Default", function(v, focusLost)
+	print("Input", v)
+
+	if focusLost then
+		venyx:Notify("Title", v)
+	end
+end)
+
+section2:addKeybind("Toggle Keybind", Enum.KeyCode.One, function()
+	print("Activated Keybind")
+	venyx:toggle()
+end, function()
+	print("Changed Keybind")
+end)
+section2:addColorPicker("ColorPicker", Color3.fromRGB(50, 50, 50))
+section2:addColorPicker("ColorPicker2")
+
+section2:addSlider("Slider", 0, -100, 100, function(v) -- // slider
+	print("Dragged", v)
+end)
+section2:addDropdown("Dropdown", {"Hello", "World", "Hello World", "Word", 1, 2, 3})
+section2:addDropdown("Dropdown", {"Hello", "World", "Hello World", "Word", 1, 2, 3}, function(s)
+	print("Selected", s)
+end)
+section2:addButton("Button")
+
+
+-- load
+venyx:SelectPage(venyx.pages[1], true)
+]]--
