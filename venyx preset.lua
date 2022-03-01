@@ -11,6 +11,12 @@ https://raw.githubusercontent.com/Discord0000/Venyx-UI-Library/main/thing.lua
 https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua
 https://raw.githubusercontent.com/sannin9000/Ui-Libraries/main/Venyx 
 ]]--
+
+-- // anti afk
+for i,v in pairs(getconnections(lp.Idled)) do
+	v:Disable()
+end
+
 if game:GetService("CoreGui"):FindFirstChild("Venyx") then
     game.CoreGui.Venyx:Destroy()
 end
@@ -45,11 +51,12 @@ speed_Jump:addToggle("Activate Speed/Jump", nil, function(v)
         task.wait()
         hum.WalkSpeed = Speed
         hum.JumpPower = Jump
+    end
 end)
 -- // Settings
 local settings = UI:addPage("Settings", 5012544386)
-local keybindChange = settings:addSection("Toggle Keybind")
-keybindChange:addKeybind("Toggle Keybind", Enum.KeyCode.P, function()
+local general = settings:addSection("Toggle Keybind")
+general:addKeybind("Toggle Keybind", Enum.KeyCode.P, function()
 	UI:toggle()
 end)
 
