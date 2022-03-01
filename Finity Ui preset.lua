@@ -14,6 +14,11 @@ local EnumKeys = {'Semicolon','Tab','Equals','Comma','Minus','Period','F1',"F2",
     'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M','Slash','One','Two','Three',"Four","Five","Six","Seven","Eight",
     "Nine","Zero",'BackSlash','RightBracket','LeftBracket'}
 
+-- // anti afk
+for i,v in pairs(getconnections(lp.Idled)) do
+	v:Disable()
+end
+
 if game:GetService("CoreGui"):FindFirstChild("FinityUI") then
     game.CoreGui.FinityUI:Destroy()
 end
