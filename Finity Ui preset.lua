@@ -1,8 +1,8 @@
 --Game:
 
 -- docs : https://detourious.gitbook.io/project-finity/docs
-local plr = game:GetService("Players").LocalPlayer
-local char = plr.Character
+local lp = game:GetService("Players").LocalPlayer
+local char = lp.Character
 local hum = char.Humanoid
 local root = char:FindFirstChild("HumanoidRootPart")
  
