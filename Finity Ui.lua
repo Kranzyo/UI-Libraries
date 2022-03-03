@@ -1,4 +1,22 @@
--- reupload
+--[[
+	 ______ _____ _   _ _____ _________     __
+	|  ____|_   _| \ | |_   _|__   __\ \   / /
+	| |__    | | |  \| | | |    | |   \ \_/ / 
+	|  __|   | | | . ` | | |    | |    \   /  
+	| |     _| |_| |\  |_| |_   | |     | |   
+	|_|    |_____|_| \_|_____|  |_|     |_|   
+	
+	Source:
+		https://d3to-finity.000webhostapp.com/files/source-0.1.2.txt
+	Version:
+	 0.1.5
+	Date: 
+		April 21th, 2020
+	Author: 
+		detourious @ v3rmillion.net
+					
+--]]
+
 
 local finity = {}
 finity.gs = {}
@@ -123,8 +141,9 @@ function finity.new(isdark, gprojectName, thinProject)
 	local self = finity
 
 	if not finity.gs["RunService"]:IsStudio() and self.gs["CoreGui"]:FindFirstChild("FinityUI") then
-
-		self.gs["CoreGui"]:FindFirstChild("FinityUI"):Destroy()
+		warn("finity:", "instance already exists in coregui!")
+		
+		return
 	end
 
 	local theme = finity.theme
@@ -1156,9 +1175,9 @@ function finity.new(isdark, gprojectName, thinProject)
 							if callback then
 								local s, e = pcall(function()
 									if data.precise then
-										callback(math.ceil(cheat.value))
-									else
 										callback(cheat.value)
+									else
+										callback(math.ceil(cheat.value))
 									end
 								end)
 
@@ -1189,9 +1208,9 @@ function finity.new(isdark, gprojectName, thinProject)
 								if callback then
                                     local s, e = pcall(function()
                                         if data.precise then
-                                            callback(math.ceil(cheat.value))
-                                        else
                                             callback(cheat.value)
+                                        else
+                                            callback(math.ceil(cheat.value))
                                         end
 									end)
 
