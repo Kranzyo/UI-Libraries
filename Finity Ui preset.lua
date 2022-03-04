@@ -26,8 +26,8 @@ end
 https://raw.githubusercontent.com/Kranzyo/UI-Libraries/main/Finity%20Ui
 https://raw.githubusercontent.com/bloodball/UI-Librarys/main/Finity%20UI%20Lib
 ]]
-local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kranzyo/UI-Libraries/main/Finity%20Ui"))()
-local FinityWindow = Finity.new(true)
+local Finity = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kranzyo/UI-Libraries/main/Finity%20Ui.lua"))()
+local FinityWindow = Finity.new(true, "Setup") -- name of thing
 FinityWindow.ChangeToggleKey(Enum.KeyCode.BackSlash)
 
 -- // Credits and stuff
@@ -73,9 +73,9 @@ end)
 
 -- // Settings
 local Settings = FinityWindow:Category("Settings")
-local ChangeToggleKey = Settings:Sector("Change Toggle")
+local generalSettings = Settings:Sector("General")
 
-ChangeToggleKey:Cheat("Dropdown", "Change Toggle Key", 
+generalSettings:Cheat("Dropdown", "Change Toggle Key", 
 function(Option)
     FinityWindow.ChangeToggleKey(Enum.KeyCode[Option])
 end,
@@ -83,10 +83,14 @@ end,
 options = EnumKeys
 })
 
---Examples?
+generalSettings:Cheat("Button", "Delete GUI", function() --Button
+    game:GetService("CoreGui").FinityUI:Destroy()
+    end)
+
+--Examples
 
 --[[
-    S1:Cheat("Slider", "Render Distance", function(v)--Slider
+    S1:Cheat("Slider", "Render Distance", function(v) --Slider
     print("Silder value changed:", v)
     end, {min = 0, max = 1500, suffix = " studs"})
     
@@ -103,19 +107,18 @@ options = EnumKeys
     }
     })
     
-    
+
     S1:Cheat("Textbox", "Item To Whitelist", function(v) --Textbox
     print("Textbox value changed:", v)
     end, {
     placeholder = "Item Name"
     })
     
-    
     S1:Cheat("Button", "Reset Whitelist", function() --Button
     print("Button pressed")
     end)
     
-    
+    Check box code :
     S1:Cheat("Checkbox","Name",
     function(State)
         if not State then
@@ -126,6 +129,49 @@ options = EnumKeys
         while _G.on == 1 do
             game:GetService('RunService').Stepped:wait()
         end
-    end
-    )
-    ]]
+    end)
+    
+    -- Default color
+Sector:Cheat("ColorPicker", "Color", function(Color) -- Color picker
+  print("Color changed: " .. "R:" .. tostring(Color.R) .. "; G:" .. tostring(Color.G) .. "; B:" .. tostring(Color.B))
+end, {
+  color = Color3.new(0, 1, 0) -- Bright green
+})
+
+Keybind cheat type
+Cheat menus are now scrollable when they are too big
+New dropdown methods to allow for more dynamic options
+    ^ Dropdown:AddOption(String ValueToAdd)
+    ^ Dropdown:RemoveOption(String ValueToRemove)
+    ^ Dropdown:SetValue(String Value) <-- Value doesn't have to exist as an option
+Customizable background image
+    ^ Window:ChangeBackgroundImage(String AssetURL [, Number Transparency])
+New constructor parameters
+    ^ Finity.new([Boolean IsDarkMode, String ProjectName, Boolean SingleColumn])
+        ^ Setting the ProjectName will change the text at the top of the window
+        ^ Setting the SingleColumn boolean to a UDim2 value allows for a custom window size
+
+Bind pseudo-code:
+-- No default bind
+Sector:Cheat("Keybind", "Label Text", function(KeyCode)
+    print("Keybind pressed: " .. KeyCode.Name)
+end)
+
+- With default bind
+Sector:Cheat("Keybind", "Label Text", function(KeyCode)
+    print("Keybind pressed: " .. KeyCode.Name)
+end, {
+    bind = DefaultBind -- KeyCode, ex: "Enum.KeyCode.LeftShift"
+})
+
+Color-picker pseudo-code:
+-- No default color
+Sector:Cheat("ColorPicker", "Color", function(Color)
+  print("Color changed: " .. "R:" .. tostring(Color.R) .. "; G:" .. tostring(Color.G) .. "; B:" .. tostring(Color.B))
+end)
+
+
+-
+
+]]
+    

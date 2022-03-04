@@ -20,8 +20,8 @@ end
 if game:GetService("CoreGui"):FindFirstChild("Venyx") then
     game.CoreGui.Venyx:Destroy()
 end
-local venyx = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kranzyo/UI-Libraries/main/Venyx"))()
-local UI = venyx.new("Game", 5012540643)
+local venyx = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kranzyo/UI-Libraries/main/Venyx.lua"))()
+local UI = venyx.new("Game", 5012540643) -- Edit this please
 
 -- // Credits
 local creditsPage = UI:addPage("Credits", 4102979828)
@@ -47,8 +47,8 @@ speed_Jump:addSlider("Jump", 50, 50, 250, function(v)
     getgenv().Jump = v
 end)
 speed_Jump:addToggle("Activate Speed/Jump", nil, function(v)
-    while v do
-        task.wait()
+	speedOn = v
+    while speedOn do task.wait()
         hum.WalkSpeed = Speed
         hum.JumpPower = Jump
     end
@@ -58,6 +58,10 @@ local settings = UI:addPage("Settings", 5012544386)
 local general = settings:addSection("Toggle Keybind")
 general:addKeybind("Toggle Keybind", Enum.KeyCode.P, function()
 	UI:toggle()
+end)
+
+general:addButton("Delete GUI", function()
+	game.CoreGui.Venyx:Destroy()
 end)
 
 UI:SelectPage(UI.pages[1], true)
