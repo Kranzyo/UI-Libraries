@@ -4,6 +4,116 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlexR
 local Library = loadstring(game:GetObjects("rbxassetid://7974127463")[1].Source)()
 ]]
 
+local ConfigSystem = Debug and loadfile("Modules/ConfigSystem.lua")() or loadstring(game:HttpGet("https://raw.githubusercontent.com/AlexR32/Roblox/main/ConfigSystem.lua"))()
+
+-- edit stuff below please don't forget
+local function SaveConfig() 
+    if isfile("script config") then
+        ConfigSystem.WriteJSON(Config, "Kranz's Scripts/script config") -- PLEASE FUTURE ME EDIT THIS
+    else
+        makefolder("Kranz's Scripts")
+        ConfigSystem.WriteJSON(Config, "Kranz's Scripts/script config") -- PLEASE FUTURE ME EDIT THIS
+    end
+end
+
+local function LoadConfig()
+    if isfile("script config") then
+        getgenv().Config = ConfigSystem.ReadJSON("Kranz's Scripts/script config", Config)
+    else
+        makefolder("Kranz's Scripts")
+        ConfigSystem.WriteJSON(Config, "Kranz's Scripts/script config") -- PLEASE FUTURE ME EDIT THIS
+    end
+end
+getgenv().Config = {
+    UI = {
+        Name = "Game",
+        Enabled = true,
+        Keybind = "RightShift",
+        Color = Color3.fromRGB(255,128,64),
+        Background = "Floral",
+        BackgroundId = "rbxassetid://5553946656",
+        BackgroundColor = Color3.fromRGB(0,0,0),
+        BackgroundTransparency = 0
+    },
+}
+
+LoadConfig()
+-- ui lib
+local Library = loadstring(game:GetObjects("rbxassetid://7974127463")[1].Source)()
+local Window = Library({Name = Config.UI.Name,Color = Color3.new(1,0.5,0.25),Size = UDim2.new(0,496,0,496),Position = UDim2.new(0.5,-248,0.5,-248)}) do
+    local MainTab = Window:AddTab({Name = "Main"}) do
+        -- Scripts and stuff
+
+    end
+    local SettingsTab = Window:AddTab({Name = "Settings"}) do
+        local BackgroundSection = SettingsTab:AddSection({Name = "Background",Side = "Right"}) do
+            BackgroundSection:AddDropdown({Name = "Image",Default = Config.UI.Background,
+            List = {"Legacy","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"},
+            Callback = function(String)
+                -- Credits to Jan for cool patterns 
+                Config.UI.Background = String
+                if String == "Legacy" then
+                    Window.Background.Image = "rbxassetid://2151741365"
+                    Config.UI.BackgroundId = "rbxassetid://2151741365"
+                elseif String == "Hearts" then
+                    Window.Background.Image = "rbxassetid://6073763717"
+                    Config.UI.BackgroundId = "rbxassetid://6073763717"
+                elseif String == "Abstract" then
+                    Window.Background.Image = "rbxassetid://6073743871"
+                    Config.UI.BackgroundId = "rbxassetid://6073743871"
+                elseif String == "Hexagon" then
+                    Window.Background.Image = "rbxassetid://6073628839"
+                    Config.UI.BackgroundId = "rbxassetid://6073628839"
+                elseif String == "Circles" then
+                    Window.Background.Image = "rbxassetid://6071579801"
+                    Config.UI.BackgroundId = "rbxassetid://6071579801"
+                elseif String == "Lace With Flowers" then
+                    Window.Background.Image = "rbxassetid://6071575925"
+                    Config.UI.BackgroundId = "rbxassetid://6071575925"
+                elseif String == "Floral" then
+                    Window.Background.Image = "rbxassetid://5553946656"
+                    Config.UI.BackgroundId = "rbxassetid://5553946656"
+                end
+            end})
+            BackgroundSection:AddTextbox({Name = "Custom Image",Text = "",Placeholder = "rbxassetid://ImageId",Callback = function(String)
+                Window.Background.Image = String
+                Config.UI.BackgroundId = String
+            end})
+            Window.Background.Image = Config.UI.BackgroundId
+            Window.Background.ImageColor3 = Config.UI.BackgroundColor
+            BackgroundSection:AddColorpicker({Name = "Color",Color = Window.Background.ImageColor3,Callback = function(Color)
+                Config.UI.BackgroundColor = Color
+                Window.Background.ImageColor3 = Color
+            end})
+            Window.Background.ImageTransparency = Config.UI.BackgroundTransparency
+            BackgroundSection:AddSlider({Name = "Transparency",Min = 0,Max = 1,Precise = 2,Value = Window.Background.ImageTransparency,Callback = function(Number)
+                Config.UI.BackgroundTransparency = Number
+                Window.Background.ImageTransparency = Number
+            end})
+            BackgroundSection:AddSlider({Name = "Tile Offset",Min = 74, Max = 296,Value = Window.Background.TileSize.X.Offset,Callback = function(Number)
+                Window.Background.TileSize = UDim2.new(0,Number,0,Number)
+            end})
+            BackgroundSection:AddSlider({Name = "Tile Scale",Min = 0, Max = 1,Precise = 2,Value = Window.Background.TileSize.X.Scale,Callback = function(Number)
+                Window.Background.TileSize = UDim2.new(Number,0,Number,0)
+            end})
+        end
+
+        local CreditsSection = SettingsTab:AddSection({"Credits Section", Side = "Right"}) do
+            CreditsSection:AddLabel({Text = "Thanks to Jan For This Awesome Patterns"})
+            CreditsSection:AddLabel({Text = "Thanks to el3tric for Bracket V2 (Remade to Bracket V3.1) by AlexR32#0157"})
+            CreditsSection:AddLabel({Text = "Thanks AlexR32#0157 for config system and custom image background script"})
+            CreditsSection:AddLabel({Text = "And Kranz#0737 For Making This Awesome Script!"})
+        end
+    end
+
+end
+
+-- Config saving
+PlayerService.PlayerRemoving:Connect(function(Player))
+    if Player == LocalPlayer then SaveConfig() end
+end
+
+--[[
 local Library = loadstring(game:GetObjects("rbxassetid://7974127463")[1].Source)()
 local Window = Library({Name = "Window",Color = Color3.new(1,0.5,0.25),Size = UDim2.new(0,496,0,496),Position = UDim2.new(0.5,-248,0.5,-248)}) do
     --Window:ChangeName("Window")
@@ -79,3 +189,4 @@ local Window = Library({Name = "Window",Color = Color3.new(1,0.5,0.25),Size = UD
         end
     end
 end
+]]

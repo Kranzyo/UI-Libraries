@@ -1,7 +1,16 @@
 -- // Game:
 
--- docs : https://github.com/GreenDeno/Venyx-UI-Library/blob/main/example.lua
-local lp = game:GetService("Players").LocalPlayer
+local gameName = "Game" -- put game
+
+-- docs for lib: https://github.com/GreenDeno/Venyx-UI-Library/blob/main/example.lua
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+local HttpService = game:GetService("HttpService")
+local RunService = game:GetService("RunService")
+local PlayerService = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local lp = PlayerService.LocalPlayer
 local char = lp.Character
 local hum = char.Humanoid
 local root = char:FindFirstChild("HumanoidRootPart")
@@ -18,10 +27,10 @@ for i,v in pairs(getconnections(lp.Idled)) do
 end
 
 if game:GetService("CoreGui"):FindFirstChild("Venyx") then
-    game.CoreGui.Venyx:Destroy()
+    game.CoreGui.gameName:Destroy()
 end
 local venyx = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kranzyo/UI-Libraries/main/Venyx.lua"))()
-local UI = venyx.new("Game", 5012540643) -- Edit this please
+local UI = venyx.new(gameName, 5012540643) -- Edit this please
 
 -- // Credits
 local creditsPage = UI:addPage("Credits", 4102979828)
@@ -61,7 +70,7 @@ general:addKeybind("Toggle Keybind", Enum.KeyCode.P, function()
 end)
 
 general:addButton("Delete GUI", function()
-	game.CoreGui.Venyx:Destroy()
+	game.CoreGui.gameName:Destroy()
 end)
 
 UI:SelectPage(UI.pages[1], true)
