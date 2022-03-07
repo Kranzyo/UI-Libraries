@@ -57,7 +57,7 @@ LoadConfig()
 
 -- ui lib
 local Library = loadstring(game:GetObjects("rbxassetid://7974127463")[1].Source)()
-local Window = Library({Name = Config.UI.Name,Enaled = Config.UI.Enabled, Color = Config.UI.color,Position = UDim2.new(0.5,-248,0.5,-248)}) do
+local Window = Library({Name = Config.UI.Name,Enaled = Config.UI.Enabled, Color = Config.UI.Color,Position = UDim2.new(0.5,-248,0.5,-248)}) do
     local MainTab = Window:AddTab({Name = "Main"}) do
         -- Scripts and stuff
 
@@ -76,22 +76,8 @@ local Window = Library({Name = Config.UI.Name,Enaled = Config.UI.Enabled, Color 
             end})
         end
 
-        SettingsTab:AddButton({Name = "Server Hop",Side = "Left",Callback = function()
-            -- Credits to Infinite Yield for serverhop
-            local x = {}
-            for _, v in ipairs(HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
-                if type(v) == "table" and v.id ~= game.JobId then
-                    x[#x + 1] = v.id
-                end
-            end
-            if #x > 0 then
-                game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, x[math.random(1, #x)])
-            else
-                NotifyLib:TypeWrite("<font size=\"30\"><font color=\"rgb(252,126,63)\"><b>⚠</b></font></font> couldn't find a server",15,0)
-            end
-        end})
-
-        local BackgroundSection = SettingsTab:AddSection({Name = "Background",Side = "Right"}) do
+    
+        local BackgroundSection = SettingsTab:AddSection({Name = "Background",Side = "Left"}) do
             BackgroundSection:AddDropdown({Name = "Image",Default = Config.UI.Background,
             List = {"Legacy","Hearts","Abstract","Hexagon","Circles","Lace With Flowers","Floral"},
             Callback = function(String)
