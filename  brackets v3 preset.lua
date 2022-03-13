@@ -20,9 +20,9 @@ local Workspace = game:GetService("Workspace")
 -- creds AlexR32#0157 for modules
 local ConfigSystem = Debug and loadfile("Modules/ConfigSystem.lua")() or loadstring(game:HttpGet("https://raw.githubusercontent.com/AlexR32/Roblox/main/ConfigSystem.lua"))()
 
--- edit stuff below please don't forget
+-- EDIT STUFF BELOW PLEASE DON'T FORGET
 local function SaveConfig() 
-    if isfile("script config") then
+    if isfile("Kranz's Scripts/script config.JSON") then
         ConfigSystem.WriteJSON(Config, "Kranz's Scripts/script config.JSON") -- PLEASE FUTURE ME EDIT THIS
     else
         makefolder("Kranz's Scripts")
@@ -31,7 +31,7 @@ local function SaveConfig()
 end
 
 local function LoadConfig()
-    if isfile("script config") then
+    if isfile("Kranz's Scripts/script config.JSON") then
         getgenv().Config = ConfigSystem.ReadJSON("Kranz's Scripts/script config.JSON", Config)
     else
         makefolder("Kranz's Scripts")
@@ -130,7 +130,6 @@ local Window = Library({Name = Config.UI.Name,Enaled = Config.UI.Enabled, Color 
         end
 
         local CreditsSection = SettingsTab:AddSection({"Credits Section", Side = "Right"}) do
-            CreditsSection:AddLabel({Text = "Thanks infinite yield for server hop"})
             CreditsSection:AddLabel({Text = "Thanks to Jan For This Awesome Patterns"})
             CreditsSection:AddLabel({Text = "Thanks to el3tric for Bracket V2 (Remade to Bracket V3.1) by AlexR32#0157"})
             CreditsSection:AddLabel({Text = "Thanks AlexR32#0157 for config and notify system and custom image background script"})

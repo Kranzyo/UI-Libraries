@@ -15,6 +15,43 @@ local char = lp.Character
 local hum = char.Humanoid
 local root = char:FindFirstChild("HumanoidRootPart")
 
+
+-- config module
+local ConfigSystem = Debug and loadfile("Modules/ConfigSystem.lua")() or loadstring(game:HttpGet("https://raw.githubusercontent.com/AlexR32/Roblox/main/ConfigSystem.lua"))()
+-- config system
+local function SaveConfig()
+	if isfile("Kranz's Scripts/Island's Config.json") then
+		ConfigSystem.WriteJSON(Config, "Kranz's Scripts/Island's Config.json")
+
+	else
+		makefolder("Kranz's Scripts")
+		ConfigSystem.WriteJSON(Config, "Kranz's Scripts/Island's Config.json")
+	end
+end
+
+local function LoadConfig()
+	if isfile("Kranz's Scripts/Island's Config.JSON") then
+		getgenv().Config = ConfigSystem.ReadJSON("Kranz's Scripts/Island's Config.json", Config)
+
+	else
+		makefolder("Kranz's Scripts")
+		ConfigSystem.WriteJSON(Config, "Kranz's Scripts/Island's Config.json")
+	end
+end
+
+
+getgenv().Config = {
+
+	themes = {
+		Background = Color3.fromRGB(24, 24, 24),
+		Glow = Color3.fromRGB(0, 0, 0),
+		Accent = Color3.fromRGB(10, 10, 10),
+		LightContrast = Color3.fromRGB(20, 20, 20),
+		DarkContrast = Color3.fromRGB(14, 14, 14),  
+		TextColor = Color3.fromRGB(255, 255, 255)
+	}
+}
+
 --[[ Backups
 https://raw.githubusercontent.com/Discord0000/Venyx-UI-Library/main/thing.lua
 https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua
@@ -26,9 +63,12 @@ for i,v in pairs(getconnections(lp.Idled)) do
 	v:Disable()
 end
 
-if game:GetService("CoreGui"):FindFirstChild("Venyx") then
-    game.CoreGui.gameName:Destroy()
+if game:GetService("CoreGui"):FindFirstChild(gameName) then
+    game.CoreGui[gameName]:Destroy()
 end
+
+
+LoadConfig()
 local venyx = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kranzyo/UI-Libraries/main/Venyx.lua"))()
 local UI = venyx.new(gameName, 5012540643) -- Edit this please
 
@@ -64,16 +104,35 @@ speed_Jump:addToggle("Activate Speed/Jump", nil, function(v)
 end)
 -- // Settings
 local settings = UI:addPage("Settings", 5012544386)
+local themeChanger = settings:addSection("Themes Colors")
+
+for theme, color in pairs(Config.themes) do
+	themeChanger:addColorPicker(theme, color, function(color3)
+		color = color3 
+		Config.themes[theme] = color3
+		UI:setTheme(theme, Config.themes[theme])
+	end)
+end
+
 local general = settings:addSection("Toggle Keybind")
 general:addKeybind("Toggle Keybind", Enum.KeyCode.P, function()
 	UI:toggle()
 end)
 
 general:addButton("Delete GUI", function()
-	game.CoreGui.gameName:Destroy()
+	game.CoreGui[gameName]:Destroy()
 end)
 
+for theme, color in pairs(Config.themes) do
+	UI:setTheme(theme, color)
+end
+-- load
 UI:SelectPage(UI.pages[1], true)
+
+-- config save on player removal
+PlayerService.PlayerRemoving:Connect(function(plr)
+	if plr == lp then SaveConfig() end
+end)
 --[[
 
 -- init
